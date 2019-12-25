@@ -52,6 +52,8 @@ class TaskController extends Controller
      */
     public function destroy(Request $request, Task $task)
     {
-        //
+        $this->authorize('destroy', $task);
+
+        // 刪除該任務...
     }
 }

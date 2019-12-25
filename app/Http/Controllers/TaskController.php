@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Task;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Repositories\TaskRepository;
 
 class TaskController extends Controller
 {
@@ -11,9 +13,10 @@ class TaskController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(TaskRepository $tasks)
     {
         $this->middleware('auth');
+        $this->tasks = $tasks;
     }
     public function index(Request $request)
     {
@@ -21,7 +24,7 @@ class TaskController extends Controller
         $tasks = Task::where('user_id', $request->user()->id)->get();
 
         return view('tasks.index', [
-            'tasks' => $tasks,
+            'tasks' => $this->tasks->forUser($request->user()),
         ]);
     }
 

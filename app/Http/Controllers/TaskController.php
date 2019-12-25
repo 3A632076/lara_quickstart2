@@ -18,6 +18,7 @@ class TaskController extends Controller
         $this->middleware('auth');
         $this->tasks = $tasks;
     }
+
     public function index(Request $request)
     {
 
@@ -40,5 +41,17 @@ class TaskController extends Controller
         ]);
 
         return redirect('/tasks');
+    }
+
+    /**
+     * 移除給定的任務。
+     *
+     * @param Request $request
+     * @param Task $task
+     * @return Response
+     */
+    public function destroy(Request $request, Task $task)
+    {
+        //
     }
 }
